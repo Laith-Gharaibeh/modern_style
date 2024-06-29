@@ -1,11 +1,13 @@
 // components
-import Navbar from "@/components/Navbar/Navbar";
+import Hero from "@/components/homePage/Hero";
+import BestSellers from "@/components/homePage/BestSellers";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Navbar />
-      <h1>Hello Next.js</h1>
+    <main>
+      <Hero />
+
+      <BestSellers />
     </main>
   );
 }

@@ -20,8 +20,13 @@ const Navbar = () => {
 
   // effects
   useEffect(() => {
+    const mainElement = document.querySelector("main");
+
     if (window.innerWidth < 768) {
       setIsLargeScreen(false);
+      mainElement.style.paddingTop = "42px";
+    } else {
+      mainElement.style.paddingTop = "58px";
     }
   }, []);
 
