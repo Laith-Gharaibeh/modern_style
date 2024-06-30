@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = (props) => {
+  // console.log("[ProductCard.jsx] props= ", props);
+
   const { price, priceAfterDiscount, discountPercentage } = props;
+  const { addToCart, productInfo } = props.productCardWords;
 
   return (
     <div className="relative w-[250px] bg-slate-500 border border-gray-200">
@@ -23,13 +26,13 @@ const ProductCard = (props) => {
         />
         <div className="w-full absolute bottom-2 z-20 flex justify-center gap-2">
           <button className="p-2 bg-black hover:bg-orange-400 text-white">
-            Add to cart
+            {addToCart}
           </button>
           <Link
             href="#"
             className="p-2 bg-white hover:bg-orange-400 text-black hover:text-white"
           >
-            Product Info
+            {productInfo}
           </Link>
         </div>
         <div className="overlay absolute top-0 left-0 w-full h-full group-hover:bg-orange-400 group-hover:opacity-25 "></div>

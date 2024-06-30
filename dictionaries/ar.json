@@ -1,0 +1,14 @@
+{
+  "components": {
+    "navbar": {
+      "home":"الرئيسية",
+      "shop":"تسوق",
+      "blog":"المدونة",
+      "login":"تسجيل الدخول"
+    },
+    "productCard": {
+      "addToCart": "اضف للسلة",
+      "productInfo": "معلومات المنتج"
+    }
+  }
+}

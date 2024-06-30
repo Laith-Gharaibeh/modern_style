@@ -6,14 +6,16 @@ import { useState, useEffect } from "react";
 // react-icons
 import { HiBars3 } from "react-icons/hi2";
 
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Shop", href: "/shop", current: false },
-  { name: "Blog", href: "/blog", current: false },
-  { name: "Login", href: "/login", current: false },
-];
+const Navbar = (props) => {
+  // console.log("[Navbar.jsx] props = ", props);
+  const { home, shop, blog, login } = props.navbarWords;
 
-const Navbar = () => {
+  const navigation = [
+    { name: home, href: "/", current: true },
+    { name: shop, href: "/shop", current: false },
+    { name: blog, href: "/blog", current: false },
+    { name: login, href: "/login", current: false },
+  ];
   // states
   const [showNavbar, setShowNavbar] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
@@ -44,7 +46,7 @@ const Navbar = () => {
           Modern Style
         </Link>
 
-        <HiBars3 onClick={navbarHandler} className="md:hidden" />
+        <HiBars3 onClick={navbarHandler} className="md:hidden text-gray-700" />
 
         <div
           className={`flex items-center gap-5 overflow-hidden transition-[height] ease-in-out duration-300
@@ -61,7 +63,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 href={singleLink.href}
-                className="text-gray-700"
+                className="text-gray-700 capitalize"
               >
                 {singleLink.name}
               </Link>

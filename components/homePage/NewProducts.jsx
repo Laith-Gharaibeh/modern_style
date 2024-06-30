@@ -1,7 +1,9 @@
 // components
 import ProductCard from "@/components/ProductCard";
 
-const NewProducts = () => {
+const NewProducts = (props) => {
+  const { productCardWords } = props;
+
   return (
     <section className="bg-gray-50">
       <div className="container">
@@ -13,14 +15,16 @@ const NewProducts = () => {
         </p>
 
         <div className="flex flex-wrap justify-center gap-8">
-          <ProductCard price={100} />
+          <ProductCard productCardWords={productCardWords} price={100} />
           <ProductCard
+            productCardWords={productCardWords}
             price={100}
             priceAfterDiscount={70}
             discountPercentage={30}
           />
-          <ProductCard price={20} />
+          <ProductCard productCardWords={productCardWords} price={20} />
           <ProductCard
+            productCardWords={productCardWords}
             price={50}
             priceAfterDiscount={25}
             discountPercentage={50}

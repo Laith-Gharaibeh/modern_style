@@ -1,0 +1,14 @@
+{
+  "components": {
+    "navbar": {
+      "home":"home",
+      "shop":"shop",
+      "blog":"blog",
+      "login":"login"
+    },
+    "productCard": {
+      "addToCart": "Add to cart",
+      "productInfo": "Product info"
+    }
+  }
+}
