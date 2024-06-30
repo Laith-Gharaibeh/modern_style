@@ -38,9 +38,11 @@ const Navbar = () => {
   let navbarStyle = { height: "calc(100% - 42px)" };
 
   return (
-    <header className="fixed z-10 top-0 w-full bg-white  border-2 border-b-gray-200 dark:border-0 dark:border-b-2 dark:border-b-gray-500 p-2 md:p-4">
+    <header className="fixed z-50 top-0 w-full bg-white  border-2 border-b-gray-200 dark:border-0 dark:border-b-2 dark:border-b-gray-500 p-2 md:p-4">
       <nav className="container flex items-center justify-between ">
-        <Link href="/">Modern Style</Link>
+        <Link href="/" className="text-gray-700">
+          Modern Style
+        </Link>
 
         <HiBars3 onClick={navbarHandler} className="md:hidden" />
 
@@ -56,7 +58,11 @@ const Navbar = () => {
         >
           {navigation.map((singleLink, index) => {
             return (
-              <Link key={index} href={singleLink.href}>
+              <Link
+                key={index}
+                href={singleLink.href}
+                className="text-gray-700"
+              >
                 {singleLink.name}
               </Link>
             );

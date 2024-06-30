@@ -1,11 +1,11 @@
 // components
 import ProductCard from "@/components/ProductCard";
 
-const BestSellers = () => {
+const NewProducts = () => {
   return (
-    <section className="bg-slate-500">
+    <section className="bg-gray-50">
       <div className="container">
-        <h2 className="text-center font-bold">BestSellers</h2>
+        <h2 className="text-center font-bold">NewProducts</h2>
 
         <p className="text-center">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse corporis
@@ -31,4 +31,4 @@ const BestSellers = () => {
   );
 };
 
-export default BestSellers;
+export default NewProducts;
