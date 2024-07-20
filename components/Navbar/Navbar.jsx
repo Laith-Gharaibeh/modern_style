@@ -1,20 +1,39 @@
 "use client";
 // next
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 // react
 import { useState, useEffect } from "react";
-// react-icons
+// NextAuth
+import { signOut, useSession } from "next-auth/react";
+// packages
+import Cookies from "js-cookie";
 import { HiBars3 } from "react-icons/hi2";
+// utilities
+import { baseUrl, postRequest } from "@/utilities/postRequest";
 
 const Navbar = (props) => {
   // console.log("[Navbar.jsx] props = ", props);
-  const { home, shop, blog, login } = props.navbarWords;
+  const { lang } = props;
+  const { data: session } = useSession();
+  const router = useRouter();
+  console.log("[Navbar.jsx] session = ", session);
+  let username = null;
+  let userId = null;
+
+  if (session) {
+    username = session.user.name;
+    userId = session.user.id;
+  }
+
+  const { home, shop, blog, login, logout } = props.navbarWords;
 
   const navigation = [
     { name: home, href: "/", current: true },
     { name: shop, href: "/shop", current: false },
     { name: blog, href: "/blog", current: false },
     { name: login, href: "/login", current: false },
+    { name: logout, href: "/", current: false },
   ];
   // states
   const [showNavbar, setShowNavbar] = useState(false);
@@ -37,12 +56,52 @@ const Navbar = (props) => {
     setShowNavbar((prevState) => !prevState);
   };
 
+  const logoutHandler = async () => {
+    console.log("[Navbar.jsx] logoutHandler");
+    // const response = await postRequest(
+    //   `${baseUrl}/users/logout`,
+    //   {},
+    //   {}
+    // );
+
+    // const response = await fetch(baseUrl + "/users/logoutUser", {
+    const response = await fetch("http://localhost:3000/api/users/logoutUser", {
+      method: "POST",
+      credentials: "include",
+    });
+    const result = await response.json();
+
+    console.log("[Navbar.jsx] logout result = ", result);
+
+    /* CORS:
+      - cross-origin request: when (X website) sends a request to fetch data from (Y website) 
+      - same-origin policy  : it is responsible for controlling whether this request will happen or not,
+        no website can read a response from another website unless three conditions are met: 
+          1- the same protocol: if (X website) uses http protocol, (Y website) must use http protocol.
+          2- the same hostname: http://www.X.com 
+          3- the same port    : http://www.X.com:8080
+
+    */
+    // if (result.message === "logoutSuccessfully") {
+    if (result) {
+      await signOut({
+        callbackUrl: `/${lang}`,
+        redirect: false,
+      });
+
+      router.replace("/" + lang);
+    }
+
+    // Cookies.remove("accessToken");
+    // Cookies.remove("next-auth.session-token");
+  };
+
   let navbarStyle = { height: "calc(100% - 42px)" };
 
   return (
     <header className="fixed z-50 top-0 w-full bg-white  border-2 border-b-gray-200 dark:border-0 dark:border-b-2 dark:border-b-gray-500 p-2 md:p-4">
       <nav className="container flex items-center justify-between ">
-        <Link href="/" className="text-gray-700">
+        <Link href={`/${lang}/`} className="text-gray-700">
           Modern Style
         </Link>
 
@@ -58,17 +117,45 @@ const Navbar = (props) => {
           `}
           style={showNavbar ? navbarStyle : {}}
         >
-          {navigation.map((singleLink, index) => {
-            return (
+          <Link href={`/${lang}/`} className="text-gray-700 capitalize">
+            {navigation[0].name}
+          </Link>
+          <Link href={`/${lang}/shop`} className="text-gray-700 capitalize">
+            {navigation[1].name}
+          </Link>
+          <Link href={`/${lang}/blog`} className="text-gray-700 capitalize">
+            {navigation[2].name}
+          </Link>
+          {username ? (
+            <>
               <Link
-                key={index}
-                href={singleLink.href}
-                className="text-gray-700 capitalize"
+                href={`/${lang}/userProfile`}
+                className="py-1 px-2 bg-orange-300 text-white"
               >
-                {singleLink.name}
+                {username}
               </Link>
-            );
-          })}
+              {/* <Link href={`/${lang}/`} className="text-red-700 capitalize"> */}
+              <Link
+                href=""
+                className="text-red-700 capitalize"
+                onClick={logoutHandler}
+                // onClick={() =>
+                //   signOut({
+                //     // callbackUrl: `http://localhost:3001/${lang}`,
+                //     callbackUrl: `/${lang}`,
+                //     redirect: false,
+                //     cookie: true,
+                //   })
+                // }
+              >
+                {navigation[4].name}
+              </Link>
+            </>
+          ) : (
+            <Link href={`/${lang}/login`} className="text-gray-700 capitalize">
+              {navigation[3].name}
+            </Link>
+          )}
         </div>
       </nav>
     </header>

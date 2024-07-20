@@ -4,7 +4,8 @@
       "home":"home",
       "shop":"shop",
       "blog":"blog",
-      "login":"login"
+      "login":"login",
+      "logout":"logout"
     },
     "productCard": {
       "addToCart": "Add to cart",

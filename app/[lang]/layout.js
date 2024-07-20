@@ -1,7 +1,12 @@
 // utilities
 import { getDictionary } from "@/utilities/dictionary";
+// providers
+// import { AuthProvider } from "@/app/[lang]/Providers";
+import { AuthProvider } from "./Providers";
 // components
 import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer";
+// css
 import "./globals.css";
 
 export const metadata = {
@@ -19,11 +24,15 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang={lang} dir={pageDirection}>
-      <body>
-        <Navbar lang={lang} navbarWords={navbarWords} />
+      <AuthProvider>
+        <body>
+          <Navbar lang={lang} navbarWords={navbarWords} />
 
-        <main>{children}</main>
-      </body>
+          <main>{children}</main>
+
+          <Footer />
+        </body>
+      </AuthProvider>
     </html>
   );
 }
