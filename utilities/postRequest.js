@@ -1,16 +1,20 @@
 export const baseUrl = "http://localhost:3000/api";
 
-export const postRequest = async (url, body, moreHeaders = {}) => {
-  console.log("[utilities/postRequest.js] body = ", body);
-
+export const postRequest = async (
+  url,
+  body,
+  moreHeaders = {},
+  credentials = "same-origin"
+) => {
   try {
     const response = await fetch(url, {
       method: "POST", // try to use OST instead of POST, handle and add appropriate message for this type of errors in (catch block)
       headers: {
-        "Content-type": "application/json",
+        // "Content-type": "application/json",
         ...moreHeaders,
       },
       body,
+      credentials,
     });
     console.log("[utilities/postRequest.js] response = ", response);
 

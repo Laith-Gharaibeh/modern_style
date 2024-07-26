@@ -1,4 +1,53 @@
 {
+  "pages":{
+    "register":{
+      "username": "Username",
+      "fillInTheUsername": "Fill in the username",
+      "email": "Email",
+      "fillInTheEmail": "Fill in the email",
+      "invalidEmail": "Invalid email",
+      "thisEmailAlreadyInUse": "This email already in use",
+      "password": "Password",
+      "fillInThePassword": "Fill in the password",
+      "PasswordMustBeAtLeast8CharactersLong":"- Password must be at least 8 characters long",
+      "oneNumber": "- One number",
+      "oneUppercaseLetter": "- One uppercase letter",
+      "oneSpecialCharacter": "- One special character",
+      "register": "Register",
+      "failedToRegister": "Failed to Register",
+      "internalServerError": "Server error occurred",
+      "login": "Login",
+      "accountSuccessfullyCreated": "Account successfully created"
+    },
+    "login":{
+      "email": "Email",
+      "fillInTheEmail": "Fill in the email",
+      "password": "Password",
+      "fillInThePassword": "Fill in the password",
+      "login": "Login",
+      "emailOrPasswordError": "Email or password error",
+      "failedToLogin": "Failed to login",
+      "createAnAccount": "Create an account" 
+    },
+    "userProfile": {
+      "myProfile": "My profile",
+      "username": "Username",
+      "email": "Email",
+      "changePassword": "Change password",
+      "passwordWord": "Password",
+      "confirmPasswordWord": "Confirm password",
+      "fillInPassword" : "Fill in the password",
+      "fillInConfirmPassword" : "Fill in the confirm password",
+      "PasswordMustBeAtLeast8CharactersLong":"- Password must be at least 8 characters long",
+      "oneNumber": "- One number",
+      "oneUppercaseLetter": "- One uppercase letter",
+      "oneSpecialCharacter": "- One special character",
+      "confirmPasswordDoesNotMatchPassword": "Confirm password does not match password",
+      "passwordChangedSuccessfully": "Password changed successfully",
+      "internalServerError": "Server error occurred",
+      "change": "Change"
+    }
+  },
   "components": {
     "navbar": {
       "home":"home",

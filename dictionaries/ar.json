@@ -1,4 +1,53 @@
 {
+  "pages":{
+    "register":{
+      "username": "اسم المستخدم",
+      "fillInTheUsername": "يرجى ملئ اسم المستخدم",
+      "email": "البريد الالكتروني",
+      "fillInTheEmail": "يرجى ملئ البريد الالكتروني",
+      "invalidEmail": "البريد الالكتروني غير صحيح",
+      "thisEmailAlreadyInUse": "هذا البريد الإلكتروني مستخدم",
+      "password": "كلمة السر",
+      "fillInThePassword": "يرجى ملئ كلمة السر",
+      "PasswordMustBeAtLeast8CharactersLong":"- يجب ان لا تقل كلمة السر عن 8 رموز",
+      "oneNumber": "- رقم على الاقل",
+      "oneUppercaseLetter": "- حرف كبير على الاقل",
+      "oneSpecialCharacter": "- رمز خاص على الاقل",
+      "register": "تسجيل",
+      "failedToRegister": "فشل في التسجيل",
+      "internalServerError":"حدث خطا في خادم الويب",
+      "login": "تسجيل الدخول",
+      "accountSuccessfullyCreated": "تم إنشاء الحساب بنجاح"
+    },
+    "login":{
+      "email": "البريد الالكتروني",
+      "fillInTheEmail": "يرجى ملئ البريد الالكتروني",
+      "password": "كلمة السر",
+      "fillInThePassword":"يرجى ملئ كلمة السر",
+      "login":"تسجيل الدخول",
+      "emailOrPasswordError": "خطأ في البريد الإلكتروني أو كلمة المرور",
+      "failedToLogin":"فشل في تسجيل الدخول",
+      "createAnAccount": "انشاء حساب" 
+    },
+    "userProfile": {
+      "myProfile": "حسابي",
+      "username": "اسم المستخدم",
+      "email": "البريد الالكتروني",
+      "changePassword": "تغيير كلمة السر",
+      "passwordWord": "كلمة السر",
+      "confirmPasswordWord": "تأكيد كلمة السر",
+      "fillInPassword" : "يرجى ملئ كلمة السر",
+      "fillInConfirmPassword" : "يرجى ملئ تأكيد كلمة السر",
+      "PasswordMustBeAtLeast8CharactersLong":"- يجب ان لا تقل كلمة السر عن 8 رموز",
+      "oneNumber": "- رقم على الاقل",
+      "oneUppercaseLetter": "- حرف كبير على الاقل",
+      "oneSpecialCharacter": "- رمز خاص على الاقل",
+      "confirmPasswordDoesNotMatchPassword": "تأكيد كلمة السر غير متطابق مع كلمة السر",
+      "passwordChangedSuccessfully": "تم تغيير كلمة السر بنجاح",
+      "internalServerError": "حدث خطا في خادم الويب",
+      "change": "تغيير"
+    }
+  },
   "components": {
     "navbar": {
       "home":"الرئيسية",

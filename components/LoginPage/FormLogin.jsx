@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 // packages
 import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
 // utilities
 import { baseUrl, postRequest } from "@/utilities/postRequest";
 // components
@@ -39,6 +40,9 @@ const FormLogin = (props) => {
     console.log("session = ", session);
   }, [session]);
 
+  // translation
+  const pageWords = props.pageWords;
+
   // functions
   const submitHandler = async (e) => {
     console.log("Login user...");
@@ -51,14 +55,14 @@ const FormLogin = (props) => {
     });
 
     if (email.trim().length === 0) {
-      setErrors((prev) => ({ ...prev, email: "Fill out the email" }));
+      setErrors((prev) => ({ ...prev, email: pageWords.fillInTheEmail }));
       return;
     } else {
       setErrors((prev) => ({ ...prev, email: "" }));
     }
 
     if (password.length === 0) {
-      setErrors((prev) => ({ ...prev, password: "Fill out the password" }));
+      setErrors((prev) => ({ ...prev, password: pageWords.fillInThePassword }));
       return;
     } else {
       setErrors((prev) => ({ ...prev, password: "" }));
@@ -81,13 +85,16 @@ const FormLogin = (props) => {
       setIsRequestRunning(false);
 
       if (!response.ok) {
-        setErrors((prev) => ({ ...prev, loginError: "Invalid Login" }));
+        setErrors((prev) => ({
+          ...prev,
+          loginError: pageWords.emailOrPasswordError,
+        }));
         return;
       }
 
       if (response.error) {
         // setErrors((prev) => ({ ...prev, loginError: response.error }));
-        setErrors((prev) => ({ ...prev, loginError: "Invalid Login" }));
+        setErrors((prev) => ({ ...prev, loginError: pageWords.failedToLogin }));
         return;
       }
 
@@ -116,7 +123,7 @@ const FormLogin = (props) => {
             htmlFor="email"
             className="block text-sm font-medium leading-6 text-white"
           >
-            Email
+            {pageWords.email}
           </label>
           <div className="mt-2">
             <input
@@ -142,7 +149,7 @@ const FormLogin = (props) => {
             htmlFor="password"
             className="block text-sm font-medium leading-6 text-white"
           >
-            Password
+            {pageWords.password}
           </label>
           <div className="mt-2">
             <input
@@ -164,7 +171,7 @@ const FormLogin = (props) => {
         {/* btn login */}
         <div className="flex justify-center">
           <button className="bg-white py-1 px-6">
-            {isRequestRunning ? <Spinner /> : "Login"}
+            {isRequestRunning ? <Spinner /> : pageWords.login}
           </button>
         </div>
 
@@ -176,7 +183,7 @@ const FormLogin = (props) => {
       </form>
 
       <Link href={`register`} className="text-blue-400 underline">
-        Create an account
+        {pageWords.createAnAccount}
       </Link>
     </>
   );

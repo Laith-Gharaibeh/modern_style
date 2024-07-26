@@ -17,7 +17,8 @@ const Navbar = (props) => {
   const { lang } = props;
   const { data: session } = useSession();
   const router = useRouter();
-  console.log("[Navbar.jsx] session = ", session);
+  // console.log("[Navbar.jsx] session = ", session);
+
   let username = null;
   let userId = null;
 

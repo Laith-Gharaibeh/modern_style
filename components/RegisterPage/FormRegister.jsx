@@ -12,9 +12,7 @@ import { baseUrl, postRequest } from "@/utilities/postRequest";
 import Spinner from "@/components/Spinner";
 
 const FormRegister = (props) => {
-  // console.log("[FormRegister.jsx] props = ", props);
-  const { lang } = props;
-
+  // states
   const [isRequestRunning, setIsRequestRunning] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +22,9 @@ const FormRegister = (props) => {
     email: "",
     password: "",
   });
-  // const router = useRouter();
+
+  // translation
+  const pageWords = props.registerPageWords;
 
   // functions
   const submitHandler = async (e) => {
@@ -36,11 +36,26 @@ const FormRegister = (props) => {
       password: "",
     });
 
-    // console.log("[FormRegister.js] submitHandler...");
+    if (username.trim().length === 0) {
+      setErrors((prev) => ({ ...prev, username: pageWords.fillInTheUsername }));
+      return;
+    } else {
+      setErrors((prev) => ({ ...prev, username: "" }));
+    }
 
-    // console.log("[FormRegister.js] username = ", username);
-    // console.log("[FormRegister.js] email = ", email);
-    // console.log("[FormRegister.js] password = ", password);
+    if (email.trim().length === 0) {
+      setErrors((prev) => ({ ...prev, email: pageWords.fillInTheEmail }));
+      return;
+    } else {
+      setErrors((prev) => ({ ...prev, email: "" }));
+    }
+
+    if (password.length === 0) {
+      setErrors((prev) => ({ ...prev, password: pageWords.fillInThePassword }));
+      return;
+    } else {
+      setErrors((prev) => ({ ...prev, password: "" }));
+    }
 
     setIsRequestRunning(true);
 
@@ -52,15 +67,16 @@ const FormRegister = (props) => {
         password,
       })
     );
+
     const result = await response;
 
-    console.log("result.error = ", result.error);
+    setIsRequestRunning(false);
 
     if (result.error) {
       switch (result.message) {
         case "internalServerError":
           console.log("A web server error occurred!");
-          toast.error(result.message);
+          toast.error(pageWords.internalServerError);
           break;
 
         case "pleaseFillInAllFields":
@@ -69,13 +85,28 @@ const FormRegister = (props) => {
           break;
 
         case "invalidEmail":
-          console.log("switch invalidEmail");
-          toast.error(result.message);
+          setErrors((prev) => {
+            return { ...prev, email: pageWords.invalidEmail };
+          });
+          break;
+
+        case "thisEmailAlreadyInUse":
+          setErrors((prev) => {
+            return { ...prev, email: pageWords.thisEmailAlreadyInUse };
+          });
           break;
 
         case "invalidPassword":
-          console.log("switch password");
-          toast.error(result.message);
+          setErrors((prev) => ({
+            ...prev,
+            // password: response.passwordTerms.join("<br>"),
+            password: [
+              pageWords.PasswordMustBeAtLeast8CharactersLong,
+              pageWords.oneNumber,
+              pageWords.oneUppercaseLetter,
+              pageWords.oneSpecialCharacter,
+            ].join("<br>"),
+          }));
           break;
         case "checkYourEmailToActivateYourAccount":
           console.log("Check your email to activate your account");
@@ -87,9 +118,13 @@ const FormRegister = (props) => {
           break;
       }
     }
-    console.log("[FormRegister.jsx] result = ", result);
 
-    setIsRequestRunning(false);
+    if (result.message === "accountSuccessfullyCreated") {
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      toast.success(pageWords.accountSuccessfullyCreated);
+    }
   };
 
   return (
@@ -104,15 +139,17 @@ const FormRegister = (props) => {
             htmlFor="username"
             className="block text-sm font-medium leading-6 text-white"
           >
-            Username
+            {pageWords.username}
           </label>
           <div className="mt-2">
             <input
               id="username"
               name="username"
               type="username"
+              value={username}
               // autoComplete="username"
               className="p-1 block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:text-sm"
+              autoFocus
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -129,13 +166,14 @@ const FormRegister = (props) => {
             htmlFor="email"
             className="block text-sm font-medium leading-6 text-white"
           >
-            Email
+            {pageWords.email}
           </label>
           <div className="mt-2">
             <input
               id="email"
               name="email"
               type="email"
+              value={email}
               // autoComplete="email"
               className="p-1 block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:text-sm"
               onChange={(e) => setEmail(e.target.value)}
@@ -154,20 +192,21 @@ const FormRegister = (props) => {
             htmlFor="password"
             className="block text-sm font-medium leading-6 text-white"
           >
-            Password
+            {pageWords.password}
           </label>
           <div className="mt-2">
             <input
               id="password"
               name="password"
               type="password"
+              value={password}
               // autoComplete="password"
               className="p-1 block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
             {errors.password && (
               <span className="inline-block px-1 md:py-2 mt-2 bg-red-400 text-white">
-                {errors.password}
+                <div dangerouslySetInnerHTML={{ __html: errors.password }} />
               </span>
             )}
           </div>
@@ -176,7 +215,7 @@ const FormRegister = (props) => {
         {/* btn register */}
         <div className="flex justify-center">
           <button className="bg-white py-1 px-6 w-[110px]">
-            {isRequestRunning ? <Spinner /> : "Register"}
+            {isRequestRunning ? <Spinner /> : pageWords.register}
           </button>
         </div>
 
@@ -192,7 +231,7 @@ const FormRegister = (props) => {
       </form>
 
       <Link href={`login`} className="text-blue-400 underline ">
-        Login
+        {pageWords.login}
       </Link>
     </>
   );

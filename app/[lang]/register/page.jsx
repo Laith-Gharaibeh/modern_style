@@ -9,15 +9,17 @@
 
   - users accounts:
   email    : rafatgh@gmail.com 
-  password : rafatGh123##
+  password : rafatgh@A1
 
-  email    : ahmedku@gmail.com 
-  password : ahmedKu123!
+  email    : ahmedku@gmail.com
+  password : ahmedku@A1
 */
 // next-auth
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+// utilities
+import { getDictionary } from "@/utilities/dictionary";
 // components
 import FormRegister from "@/components/RegisterPage/FormRegister";
 
@@ -32,10 +34,17 @@ const RegisterPage = async (props) => {
     redirect("/" + lang);
   }
 
+  // translation
+  const registerPageWords = await getDictionary(lang).then((words) => {
+    const registerPageWords = words.pages.register;
+
+    return registerPageWords;
+  });
+
   return (
     <section className="h-full flex justify-center items-center">
       <div className="container  flex flex-col justify-center items-center">
-        <FormRegister lang={lang} />
+        <FormRegister lang={lang} registerPageWords={registerPageWords} />
       </div>
     </section>
   );

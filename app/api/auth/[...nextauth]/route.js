@@ -167,3 +167,22 @@ export const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+
+/*
+  I have tested the following operations:
+- Register a new user
+
+- Logs in the user: when the user logs in the NextAuth in the main website creates this token "next-auth.session-token" and puts it in the cookies,
+  and the api endpoint (login) it generates a refreshToken and stores it in the database, and creates an accessToken and sends it to the user and puts it in the cookies
+
+- Logs the user out: : when the user logs out, the NextAuth deletes "next-auth.session-token" form cookies, and the api endpoint (logout) it deletes the refreshToken from the database, delete the accessToken from the cookies
+
+- Fetch user information on the userProfile page on the main site using the accessToken
+
+- Allow the user to change his password
+
+- if the accessToken changed the api endpoint detects this and return and error.
+
+But I haven't tested what happens if the expiration date expires accessToken and refreshToken
+
+*/
