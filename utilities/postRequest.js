@@ -16,11 +16,15 @@ export const postRequest = async (
       body,
       credentials,
     });
-    console.log("[utilities/postRequest.js] response = ", response);
+    // console.log("[utilities/postRequest.js] response = ", response);
 
-    const data = await response.json();
+    const result = await response.json();
 
-    return data;
+    // if (result.message === "sessionExpiredLoginAgain") {
+    // }
+    // console.log("[utilities/postRequest.js] result = ", result);
+
+    return result;
   } catch (catchError) {
     // this catchError will happen when we failed to send the request to the API
     // this catchError on the front-end

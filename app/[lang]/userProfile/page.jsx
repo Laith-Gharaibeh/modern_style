@@ -95,7 +95,7 @@ const UserProfilePage = async (props) => {
           {pageWords.email}: {userInfo.email}
         </p>
 
-        <FormChangePassword pageWords={pageWords} />
+        <FormChangePassword pageWords={pageWords} lang={lang} />
       </div>
     </section>
   );

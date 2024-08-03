@@ -43,8 +43,9 @@
       "oneUppercaseLetter": "- One uppercase letter",
       "oneSpecialCharacter": "- One special character",
       "confirmPasswordDoesNotMatchPassword": "Confirm password does not match password",
-      "passwordChangedSuccessfully": "Password changed successfully",
+      "sessionExpiredLoginAgain": "Session expired login again",
       "internalServerError": "Server error occurred",
+      "passwordChangedSuccessfully": "Password changed successfully",
       "change": "Change"
     }
   },

@@ -1,19 +1,24 @@
 "use client";
+// next.js
+import { useRouter } from "next/navigation";
 // react.js
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { RefreshTokenContext } from "@/app/[lang]/Providers";
 // packages
+import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
-import Cookies from "js-cookie";
 // utilities
 import { baseUrl, postRequest } from "@/utilities/postRequest";
 // components
 import Spinner from "@/components/Spinner";
-import { useSession } from "next-auth/react";
+import { useSessionContext } from "@/app/[lang]/Providers";
 
 const FormChangePassword = (props) => {
   // console.log("[FormChangePassword.jsx] props = ", props);
+  const { lang } = props;
   const { data: session } = useSession();
-  console.log("session = ", session);
+  // const { setIsSessionExpired } = useSessionContext();
+  const { setIsRefreshTokenExpired } = useContext(RefreshTokenContext);
 
   // states
   const [password, setPassword] = useState("");
@@ -23,6 +28,7 @@ const FormChangePassword = (props) => {
     password: "",
     confirmPassword: "",
   });
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
 
   // translation
   const {
@@ -37,6 +43,7 @@ const FormChangePassword = (props) => {
     oneSpecialCharacter,
     confirmPasswordDoesNotMatchPassword,
     passwordChangedSuccessfully,
+    sessionExpiredLoginAgain,
     internalServerError,
     change,
   } = props.pageWords;
@@ -144,6 +151,10 @@ const FormChangePassword = (props) => {
       setErrors({
         confirmPassword: confirmPasswordDoesNotMatchPassword,
       });
+      return;
+    } else if (response.message === "sessionExpiredLoginAgain") {
+      console.log("response.message = ", response.message);
+      setIsRefreshTokenExpired(true);
       return;
     } else if (response.message === "passwordChangedSuccessfully") {
       toast.success(passwordChangedSuccessfully);
