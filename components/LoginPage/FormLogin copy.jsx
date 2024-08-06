@@ -1,11 +1,13 @@
+/*
+  - this code here before using the socket as a provider
+*/
+
 "use client";
 // Next.js
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 // React.js
-import { useContext, useEffect, useState } from "react";
-// providers
-import { SocketContext } from "@/app/[lang]/Providers";
+import { useEffect, useState } from "react";
 // NextAuth
 import { signIn, useSession } from "next-auth/react";
 // packages
@@ -23,12 +25,10 @@ const FormLogin = (props) => {
   // console.log("[FormLogin.jsx] lang = ", lang);
   const router = useRouter();
   const { data: session } = useSession();
-  const { socket, setIsUserLogin, setSocketSession } =
-    useContext(SocketContext);
   // const locale = lang;
   // const redirectUrl = `/${locale}/register`;
 
-  // const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(null);
   const [isRequestRunning, setIsRequestRunning] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
@@ -47,10 +47,6 @@ const FormLogin = (props) => {
   // useEffect(() => {
   //   console.log("session = ", session);
   // }, [session]);
-  useEffect(() => {
-    console.log("session = ", session);
-    setSocketSession(session);
-  }, [session]);
 
   // useEffect(() => {
   //   // const socket = io.on("userLoggedIn", (userId) => {
@@ -72,21 +68,21 @@ const FormLogin = (props) => {
   //   setSocket(io("http://localhost:5000"));
   // }, []);
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     // const socket = io("http://localhost:5000");
-  //     setSocket(io("http://localhost:5000"));
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      // const socket = io("http://localhost:5000");
+      setSocket(io("http://localhost:5000"));
+    }
+  }, [isLoggedIn]);
 
-  // useEffect(() => {
-  //   // if (isLoggedIn) {
-  //   if (socket) {
-  //     socket.emit("newUser", session.user.name);
-  //     console.log("socket = ", socket);
-  //     console.log("session = ", session);
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    // if (isLoggedIn) {
+    if (socket) {
+      socket.emit("newUser", session.user.name);
+      console.log("socket = ", socket);
+      console.log("session = ", session);
+    }
+  }, [socket]);
   // ------------------------------------------------
 
   // translation
@@ -148,12 +144,7 @@ const FormLogin = (props) => {
       // router.replace(`${lang}/register`);
       // router.replace(`/register`);
       // ----- // I don't know why this way didn't work -----
-
-      // setIsLoggedIn(true);
-
-      setIsUserLogin(true);
-      // setSocketSession(session);
-
+      setIsLoggedIn(true);
       const redirectUrl = `/${lang}/`;
 
       router.replace(redirectUrl);

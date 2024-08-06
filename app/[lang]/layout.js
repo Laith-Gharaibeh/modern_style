@@ -6,6 +6,7 @@ import {
   AuthProvider,
   ExpiredRefreshTokenProvider,
   RefreshTokenProvider,
+  SocketProvider,
 } from "./Providers";
 // components
 import Navbar from "@/components/Navbar/Navbar";
@@ -32,11 +33,13 @@ export default async function RootLayout({ children, params }) {
       <AuthProvider>
         <body>
           <RefreshTokenProvider lang={lang}>
-            <Navbar lang={lang} navbarWords={navbarWords} />
+            <SocketProvider>
+              <Navbar lang={lang} navbarWords={navbarWords} />
 
-            <main>{children}</main>
+              <main>{children}</main>
 
-            <Footer />
+              <Footer />
+            </SocketProvider>
           </RefreshTokenProvider>
         </body>
       </AuthProvider>

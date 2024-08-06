@@ -3,6 +3,7 @@
     "register":{
       "username": "Username",
       "fillInTheUsername": "Fill in the username",
+      "usernameAlreadyInUse": "Username already in use",
       "email": "Email",
       "fillInTheEmail": "Fill in the email",
       "invalidEmail": "Invalid email",

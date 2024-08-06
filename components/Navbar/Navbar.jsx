@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { HiBars3 } from "react-icons/hi2";
 // utilities
 import { baseUrl, postRequest } from "@/utilities/postRequest";
+import { logoutUserSocketUtil } from "@/utilities/socketClient";
 
 const Navbar = (props) => {
   // console.log("[Navbar.jsx] props = ", props);
@@ -59,11 +60,6 @@ const Navbar = (props) => {
 
   const logoutHandler = async () => {
     console.log("[Navbar.jsx] logoutHandler");
-    // const response = await postRequest(
-    //   `${baseUrl}/users/logout`,
-    //   {},
-    //   {}
-    // );
 
     // const response = await fetch(baseUrl + "/users/logoutUser", {
     const response = await fetch("http://localhost:3000/api/users/logoutUser", {
@@ -90,11 +86,10 @@ const Navbar = (props) => {
         redirect: false,
       });
 
+      logoutUserSocketUtil(userId);
+
       router.replace("/" + lang);
     }
-
-    // Cookies.remove("accessToken");
-    // Cookies.remove("next-auth.session-token");
   };
 
   let navbarStyle = { height: "calc(100% - 42px)" };

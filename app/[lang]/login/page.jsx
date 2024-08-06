@@ -22,7 +22,7 @@ const LoginPage = async (props) => {
   // translation
   let pageWords = await getDictionary(lang);
   pageWords = pageWords.pages.login;
-  console.log("[LoginPage.jsx] pageWords = ", pageWords);
+  // console.log("[LoginPage.jsx] pageWords = ", pageWords);
 
   return (
     <section className="h-full flex justify-center items-center">

@@ -3,6 +3,7 @@
     "register":{
       "username": "اسم المستخدم",
       "fillInTheUsername": "يرجى ملئ اسم المستخدم",
+      "usernameAlreadyInUse": "اسم المستخدم مستخدم من قبل",
       "email": "البريد الالكتروني",
       "fillInTheEmail": "يرجى ملئ البريد الالكتروني",
       "invalidEmail": "البريد الالكتروني غير صحيح",

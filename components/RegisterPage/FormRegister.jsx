@@ -1,3 +1,7 @@
+/*
+  I didn't handle if the user used a "username already in use" error.
+*/
+
 "use client";
 // Next.js
 import Link from "next/link";
@@ -82,6 +86,12 @@ const FormRegister = (props) => {
         case "pleaseFillInAllFields":
           console.log("switch pleaseFillInAllFields");
           toast.error(result.message);
+          break;
+
+        case "usernameAlreadyInUse":
+          setErrors((prev) => {
+            return { ...prev, username: pageWords.usernameAlreadyInUse };
+          });
           break;
 
         case "invalidEmail":
