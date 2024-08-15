@@ -82,13 +82,21 @@ const Navbar = (props) => {
     // if (result.message === "logoutSuccessfully") {
     if (result) {
       await signOut({
-        callbackUrl: `/${lang}`,
+        callbackUrl: `/${lang}/login`,
         redirect: false,
       });
+
+      console.log("[Navbar.jsx] logout() userId = ", userId);
 
       logoutUserSocketUtil(userId);
 
       router.replace("/" + lang);
+      window.location.reload();
+      /*
+      window.location.reload() :
+        - to solve a websocket issue, because if I didn't reload the page and use the same browser tab when I login again I will get the following error on the server :
+          uncaughtException: Error: listen EADDRINUSE: address already in use :::5000
+     */
     }
   };
 

@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { baseUrl, postRequest } from "@/utilities/postRequest";
 // components
 import Spinner from "@/components/Spinner";
+import { createNewUserAccountSocketUtil } from "@/utilities/socketClient";
 
 const FormRegister = (props) => {
   // states
@@ -130,6 +131,10 @@ const FormRegister = (props) => {
     }
 
     if (result.message === "accountSuccessfullyCreated") {
+      console.log("[components/RegisterPage/FormRegister] result = ", result);
+      const { userId, username } = result.userInfo;
+      createNewUserAccountSocketUtil(userId, username);
+
       setUsername("");
       setEmail("");
       setPassword("");

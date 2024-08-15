@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 import SessionExpiredAlert from "@/components/alerts/SessionExpiredAlert";
 
 // imports for SocketProvider
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
+import { initializeSocketClient } from "@/utilities/socketClient";
 
 // auth provider
 export const AuthProvider = ({ children }) => {
@@ -68,19 +69,16 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (isUserLogin) {
-      setSocket(io("http://localhost:5000"));
+      // setSocket(io("http://localhost:5000"));
+      setSocket(initializeSocketClient());
     }
   }, [isUserLogin]);
 
   useEffect(() => {
-    // if (isUserLogin) {
     if (socket) {
-      // socket.emit("newUser", session.user.name);
-      // socket.emit("new online user, userId = ", userId);
-      // socket.emit("newUser", userId);
-      socket.emit("newUser", socketSession.user.id);
-      console.log("socket = ", socket);
+      socket.emit("newOnlineUser", socketSession.user.id);
       console.log("socketSession = ", socketSession);
+      console.log("socket = ", socket);
     }
   }, [socket]);
 

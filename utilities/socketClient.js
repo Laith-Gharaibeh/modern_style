@@ -6,14 +6,56 @@
 
 // export default socketClient;
 
+// // -----------------------------------------------------
+
+// import { io } from "socket.io-client";
+
+// const socketClient = io("http://localhost:5000");
+
+// export default socketClient;
+
+// // functions
+// export const createNewUserAccountSocketUtil = (userId, username) => {
+//   socketClient.emit("createNewUserAccount", { userId, username });
+// };
+
+// export const logoutUserSocketUtil = (userId) => {
+//   socketClient.emit("logoutUser", userId);
+// };
+
 // -----------------------------------------------------
 
 import { io } from "socket.io-client";
 
-const socketClient = io("http://localhost:5000");
+let socketClient = null;
 
-export default socketClient;
+console.log("[socketClient.js] socketClient = ", socketClient);
+// export default socketClient;
+
+export const initializeSocketClient = () => {
+  socketClient = io("http://localhost:5000");
+
+  console.log(
+    "[socketClient.js] initializeSocketClient() socketClient = ",
+    socketClient
+  );
+
+  return socketClient;
+};
+
+export const getSocketClient = () => {
+  if (socketClient) {
+    return socketClient;
+  }
+
+  return null;
+};
+
+// functions
+export const createNewUserAccountSocketUtil = (userId, username) => {
+  socketClient.emit("createNewUserAccount", { userId, username });
+};
 
 export const logoutUserSocketUtil = (userId) => {
-  socketClient.emit("logoutUser", userId);
+  socketClient?.emit("logoutUser", userId);
 };
